@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 using System.Text;
 
-namespace WinIO
+namespace WindowOutput
 {
     public abstract class TextOutput : TextWriter
     {

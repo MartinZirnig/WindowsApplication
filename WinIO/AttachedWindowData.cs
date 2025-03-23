@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace WinIO;
+namespace WindowOutput;
 public readonly struct AttachedWindowData
     (nint handle, WindowType windowType)
 : IDisposable

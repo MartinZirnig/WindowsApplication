@@ -1,15 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WindowsHooks\WindowsHooks.csproj" />
-    <ProjectReference Include="..\WindowsLowLevelStructs\WindowsLowLevelStructs.csproj" />
+    <ProjectReference Include="..\Windows\Windows.csproj" />
   </ItemGroup>
 
 </Project>

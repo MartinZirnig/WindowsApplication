@@ -2,9 +2,10 @@
 
 public class ConsoleWindow : Window
 {
-    public ConsoleWindow()
+    private ConsoleHandleManagers _handles;
+    public ConsoleWindow(nint windowHandle)
     {
-
+        _handles = new ConsoleHandleManagers(windowHandle);
     }
 
 

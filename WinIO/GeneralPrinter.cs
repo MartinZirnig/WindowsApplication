@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace WinIO;
+namespace WindowOutput;
 
 internal abstract class GeneralPrinter
     (AttachedWindowData win)

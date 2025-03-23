@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows;
 
 namespace WindowOutput
 {
-    public enum WindowType : byte
+    public abstract class OutputManager
     {
-        Console = 0,
-        Graphics = 1,
+        protected void AttachToWindow(Window win)
+        {
+
+        }
+
+
     }
 }

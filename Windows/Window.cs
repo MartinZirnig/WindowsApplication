@@ -3,30 +3,30 @@
 public abstract class Window
 {
     private bool _isDisposed;   
-    protected nint? Handle { get; private set; }
-     
+    public nint Handle { get; private set; }
+    private WindowVisibilityManager _visibilityManager;
     
-    public abstract void Show();
-    public abstract void Hide();
-    public abstract void Close();
-    public abstract nint GetHandle();
-    protected abstract void DisposeHandle();
+    public virtual void Show() => _visibilityManager.Show();
+    public virtual void Hide() => _visibilityManager.Hide();
 
-    public abstract void AssignInputManager();
-    public abstract void GetOutputManager();
-    public abstract void CallOffInputManager();
-    public abstract void CallOffOutputManager();
+    public abstract void Close();
+    public abstract void Open();
+
+
+    
+
     
     public abstract void SetWindowTitle(string title); 
-    public abstract void SetWindowIcon(string iconPth);
+    public abstract void SetWindowIcon(string iconPath);
+
     
     public void Dispose()
     {
         if (_isDisposed) return;
         
         Close();
-        DisposeHandle();
-        Handle = null;
+
+        Handle = nint.Zero;
         Disposing();
         _isDisposed = true;
         
