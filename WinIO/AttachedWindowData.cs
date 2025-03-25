@@ -1,14 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿using Handles;
+using System.Runtime.InteropServices;
 
 namespace WindowOutput;
-public readonly struct AttachedWindowData
-    (nint handle, WindowType windowType)
-: IDisposable
+public class AttachedWindowData
+    (WindowHandle handle, WindowType windowType)
 {
-    public readonly nint Handle = handle;
+    public readonly WindowHandle Handle = handle;
     public readonly WindowType WindowType = windowType;
-
-#pragma warning disable CA1416
-    public void Dispose() => Marshal.ReleaseComObject(this);
-#pragma warning restore
 }

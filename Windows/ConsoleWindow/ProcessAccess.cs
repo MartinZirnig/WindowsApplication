@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Windows.ConsoleWindow;
-
+﻿namespace Windows.ConsoleWindow;
+[Flags]
 internal enum ProcessAccess: uint
 {
     DELETE = 0x00010000,

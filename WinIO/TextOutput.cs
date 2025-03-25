@@ -6,30 +6,17 @@ namespace WindowOutput
 {
     public abstract class TextOutput : TextWriter
     {
-        public static readonly Encoding DefaultEncoding = Encoding.UTF8;
+        private Dictionary
 
 
-        public static readonly TextWriter Null;
-        private readonly GeneralPrinter _printer;
-
-        protected char[] CoreNewLine;
-
-        protected TextWriter()
+        public TextOutput()
         {
-            _printer = new ConsolePrinter();
-            
         }
         
-        protected TextWriter(IFormatProvider? formatProvider)
+        protected TextOutput(IFormatProvider? formatProvider)
         {
 
         }
-
-        public override Encoding Encoding { get; }
-
-        public override IFormatProvider FormatProvider { get; }
-
-        public override string NewLine { get; set; }
 
 
         public static TextWriter Synchronized(TextWriter writer)

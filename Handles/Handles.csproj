@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Handles\Handles.csproj" />
-    <ProjectReference Include="..\WindowsLowLevelStructs\WindowsLowLevelStructs.csproj" />
-  </ItemGroup>
-
 </Project>

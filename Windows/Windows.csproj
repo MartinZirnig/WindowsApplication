@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Handles\Handles.csproj" />
       <ProjectReference Include="..\WindowsHooks\WindowsHooks.csproj" />
       <ProjectReference Include="..\WindowsLowLevelStructs\WindowsLowLevelStructs.csproj" />
     </ItemGroup>

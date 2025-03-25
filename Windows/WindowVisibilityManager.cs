@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Handles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 namespace Windows
 {
     internal class WindowVisibilityManager
-        (nint windowHandle)
+        (WindowHandle windowHandle)
     {
-        private nint _windowHandle = windowHandle;
+        private WindowHandle _handle = windowHandle;
 
-        public void Hide() => ShowWindow(_windowHandle, (int)WindowVisibility.Hidden);
-        public void Show() => ShowWindow(_windowHandle, (int)WindowVisibility.Visible);
+        public void Hide() => ShowWindow(_handle.Value, (int)WindowVisibility.Hidden);
+        public void Show() => ShowWindow(_handle.Value, (int)WindowVisibility.Visible);
 
 
         [DllImport("user32.dll")]

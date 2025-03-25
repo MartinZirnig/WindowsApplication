@@ -1,9 +1,11 @@
-﻿namespace Windows;
+﻿using Handles;
+
+namespace Windows;
 
 public abstract class Window
 {
     private bool _isDisposed;   
-    public nint Handle { get; private set; }
+    public WindowHandle Handle { get; private set; }
     private WindowVisibilityManager _visibilityManager;
     
     public virtual void Show() => _visibilityManager.Show();

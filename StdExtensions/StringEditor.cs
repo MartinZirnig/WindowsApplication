@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 
 namespace StdExtensions;
-    public unsafe class StringEditor : IDisposable
+public unsafe class StringEditor : IDisposable
 {
     private char* _content;
     private int _length;
@@ -87,7 +80,7 @@ namespace StdExtensions;
     }
     private void ThrowWhenDisposed() =>
         ObjectDisposedException.ThrowIf(_disposed, this);
-    
+
 
     public unsafe void Dispose()
     {

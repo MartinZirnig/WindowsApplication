@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Handles;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,26 +29,29 @@ public static class WindowsHookManager
     }
     public static void ReopenHook(ref WindowsHook hook)
     {
+        if (hook.Valid) hook.Handle.Close();
+
         var thisProcess = Process.GetCurrentProcess();
         var module = thisProcess.MainModule
             ?? throw new Exception("Cannot load current module!");
         var moduleHandle = GetModuleHandle(module.ModuleName);
 
         var handle = SetWindowsHookEx((int)hook.Type, hook.CatchEvent, moduleHandle, HookToAnyThreadCode);
-        hook.Handle = handle;
+        hook.Handle = new Handle(handle);
         hook.Activate();
 
         thisProcess.Dispose();
         module?.Dispose();
     }
 
-    internal static void CloseHook(nint hook)
+    internal static void CloseHook(Handle hook)
     {
-        UnhookWindowsHookEx(hook);
+        UnhookWindowsHookEx(hook.Value);
+        hook.Close();
     }
-    internal static nint FinishHookEventHandling(nint handle, int code, nint wParam, nint lParam)
+    internal static nint FinishHookEventHandling(Handle handle, int code, nint wParam, nint lParam)
     {
-        return CallNextHookEx(handle, code, wParam, lParam);
+        return CallNextHookEx(handle.Value, code, wParam, lParam);
     }
 
 

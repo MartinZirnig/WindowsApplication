@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Handles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -9,25 +10,25 @@ namespace Windows.ConsoleWindow
 {
     internal class ConsoleHandleManagers : IDisposable
     {
-        public nint WindowHandle { get; private set; }
-        public nint ConsoleHandle { get; private set; }
+        public WindowHandle WindowHandle { get; private set; }
+        public Handle ConsoleHandle { get; private set; }
 
-        public ConsoleHandleManagers(nint windowHandle)
+        public ConsoleHandleManagers(WindowHandle windowHandle)
         {
             WindowHandle = windowHandle;
             ConsoleHandle = GetConsoleHandle(windowHandle);
         }
-        private nint GetConsoleHandle(nint windowHandle)
+        private Handle GetConsoleHandle(WindowHandle windowHandle)
         {
 
-            if (GetWindowThreadProcessId(windowHandle, out uint processId) == 0)
+            if (GetWindowThreadProcessId(windowHandle.Value, out uint processId) == 0)
                 throw new InvalidOperationException("Cannot open console handle");
 
             var result = OpenProcess((uint)ProcessAccess.PROCESS_ALL_ACCESS, false, processId);
             if (result == nint.Zero)
                 throw new InvalidOperationException("Cannot open console handle");
 
-            return result;
+            return new Handle(result);
         }
 
 
@@ -42,14 +43,11 @@ namespace Windows.ConsoleWindow
         private static extern nint OpenProcess(uint acces, bool inheriteHandle, uint processId);
 
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool CloseHandle(nint handle);
 
         public void Dispose()
         {
-            CloseHandle(ConsoleHandle);
-            ConsoleHandle = nint.Zero;
-            WindowHandle = nint.Zero;
+            WindowHandle.Close();
+            ConsoleHandle.Close();
         }
     }
 }

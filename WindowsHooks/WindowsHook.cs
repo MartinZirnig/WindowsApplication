@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Handles;
 
 namespace WindowsHooks;
 
@@ -16,11 +8,11 @@ public class WindowsHook : IDisposable
     public Action<HookEventArguments>? HookProcedure;
 
     public bool Active { get; private set; }
-    public bool Valid => Handle != nint.Zero;
+    public bool Valid => Handle.IsValid;
     public WindowsHookType Type { get; internal set; }
 
 
-    internal nint Handle { get; set; }
+    internal Handle Handle { get; set; }
     private bool _disposed;
 
     internal WindowsHook() { }

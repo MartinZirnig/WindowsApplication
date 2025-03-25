@@ -9,6 +9,9 @@ namespace WindowOutput
 {
     public abstract class OutputManager
     {
+        public List<Window> Window 
+            = new List<Window>();
+
         protected void AttachToWindow(Window win)
         {
 
