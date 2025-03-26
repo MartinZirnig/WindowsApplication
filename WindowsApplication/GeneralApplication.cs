@@ -7,12 +7,11 @@ namespace WindowsApplication;
 public abstract class GeneralApplication
 {
     private List<Window> _managedWindows;
-    private WindowsMessageManager 
+    private WindowsMessageManager _msgManager;
     
     internal GeneralApplication()
     {
         _managedWindows = new List<Window>();
-        
 
     }
 

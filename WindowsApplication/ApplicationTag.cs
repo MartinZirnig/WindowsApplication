@@ -1,4 +1,4 @@
-﻿namespace WindowsApplication.Configuration;
+﻿namespace WindowsApplication;
 
 public class ApplicationTag
 {

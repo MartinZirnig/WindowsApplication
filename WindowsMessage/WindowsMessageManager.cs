@@ -1,10 +1,13 @@
-﻿using WindowsLowLevelStructs;
+﻿using System.Diagnostics;
+using WindowsHooks;
+using WindowsLowLevelStructs;
 
 namespace WindowsMessage;
 
-public class WindowsMessageManager
+public class WindowsMessageManager : IDisposable
 {
-    public readonly CancellationTokenSource CancelationTokeSource;
+    private readonly CancellationTokenSource _cancelationTokeSource;
+    private List<WindowsHook> _hooks;
 
     public static WindowsMessageManager Instance
     {
@@ -26,7 +29,12 @@ public class WindowsMessageManager
     
     private WindowsMessageManager()
     {
-        CancelationTokeSource = new CancellationTokenSource();
+        _cancelationTokeSource = new CancellationTokenSource();
+        _hooks = new List<WindowsHook>();
+    }
+    ~WindowsMessageManager()
+    {
+        Dispose();
     }
 
     public void Run()
@@ -36,22 +44,42 @@ public class WindowsMessageManager
 
     public void MessageLoop()
     {
-        while (!CancelationTokeSource.IsCancellationRequested)
+        while (!_cancelationTokeSource.IsCancellationRequested)
         {
             try
             {
-                using (var msg = MessageLifeCycle.Get())
+                using (var msg = new MessageLifeCycle())
                 {
-                    OnRawMessage?.Invoke(msg.Message);
+                    msg.Get();
+                    OnRawMessage?.Invoke(msg.Message ??
+                        NativeExecutionException.Throw<WinApiMessage>());
 
                     msg.Translate();
-                    OnMessage?.Invoke(msg.Message);
+                    OnMessage?.Invoke(msg.Message ??
+                        NativeExecutionException.Throw<WinApiMessage>());
                 }
             }
             catch (Exception ex)
             {
                 OnError?.Invoke(ex);
             }
-        }   
+        }
+    }
+
+    public void RegisterHook(WindowsHook hook) =>
+        _hooks.Add(hook);
+    public void AbandonHook(WindowsHook hook) =>
+        _hooks.Remove(hook);
+
+    public void Close()
+    {
+        _cancelationTokeSource.Cancel();
+        _hooks = null!;
+    }
+
+    public void Dispose()
+    {
+        Close();
+        GC.SuppressFinalize(this);
     }
 }

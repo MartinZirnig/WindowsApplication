@@ -15,7 +15,10 @@ public class WindowsHook : IDisposable
     internal Handle Handle { get; set; }
     private bool _disposed;
 
-    internal WindowsHook() { }
+    internal WindowsHook() 
+    {
+        Handle = Handle.Default;
+    }
 
     internal void Activate()
     {

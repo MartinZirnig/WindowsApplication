@@ -5,31 +5,43 @@ namespace WindowsMessage;
 
 internal class MessageLifeCycle : IDisposable
 {
+    public bool Valid { get; private set; }
+
     private readonly nint _structurePointer;
-    public WinApiMessage Message { get; private set; }
+    public WinApiMessage? Message { get; private set; }
 
-    private MessageLifeCycle(nint structurePointer)
-    { 
-        _structurePointer = structurePointer;
-        RefreshStrucutre();
-    }
-
-    public static MessageLifeCycle Get()
+    public MessageLifeCycle()
     {
-        GetMessage(out var result, nint.Zero, 0, 0);
-        return new MessageLifeCycle(result);
+        var msgSize = Marshal.SizeOf(typeof(WinApiMessage));
+        _structurePointer = Marshal.AllocHGlobal(msgSize);
+
+        Valid = false;
+        Message = null;
     }
+    ~MessageLifeCycle() => Dispose();
+
+    public void Get()
+    {
+        GetMessage(_structurePointer, nint.Zero, 0, 0);
+        Valid = true;
+        RefreshStructure();
+    }
+
     public void Translate()
     {
         TranslateMessage(_structurePointer);
-        RefreshStrucutre();
+        RefreshStructure();
     }
     public void Dispose()
     {
         DispatchMessage(_structurePointer);
+        Marshal.FreeHGlobal(_structurePointer);
+        Valid = false;
+
+        GC.SuppressFinalize(this); 
     }
 
-    private void RefreshStrucutre()
+    private void RefreshStructure()
     {
         var newStructure = Marshal.PtrToStructure<WinApiMessage>(_structurePointer);
         Message = newStructure;
@@ -39,7 +51,7 @@ internal class MessageLifeCycle : IDisposable
 
     [DllImport("user32.dll")]
     public static extern int GetMessage(
-        out nint msgPtr,
+        nint msgPtr,
         nint pointer,
         uint filterMin,
         uint filterMax
@@ -52,5 +64,4 @@ internal class MessageLifeCycle : IDisposable
 
     [DllImport("user32.dll")]
     public static extern nint DispatchMessage(nint msgPtr);
-
 }
