@@ -1,26 +1,25 @@
 ﻿using Handles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using Windows;
 
-namespace WindowOutput
+namespace WindowOutput;
+internal class ConsolePrinter : Printer
 {
-    internal class ConsolePrinter : GeneralPrinter
+    private ConsoleHandle _handle;
+
+    public ConsolePrinter(AttachedWindowData win)
+        : base(win)
     {
-        private ConsoleHandle _handle;
+        _handle = ConsoleHandle.Open(win.Handle.GetProcessId());
+    }
 
-        public ConsolePrinter(AttachedWindowData win)
-            : base(win) 
-        {
-            _handle = ConsoleHandle.Open(win.Handle.GetProcessId());
-        }
+    protected override void Flushing(string value)
+    {
+        _handle.Write(value);
+    }
 
-        protected override void Flushing(string value)
-        {
-            _handle.Write(value);
-        }
+    public override void CLose()
+    {
+        _handle.Close();
+        _handle = null;
     }
 }
