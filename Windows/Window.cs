@@ -14,8 +14,7 @@ public abstract class Window
     public abstract void Close();
     public abstract void Open();
 
-
-    
+    public abstract AttachedWindowData GetWindowData();    
 
     
     public abstract void SetWindowTitle(string title); 
@@ -28,7 +27,7 @@ public abstract class Window
         
         Close();
 
-        Handle = nint.Zero;
+        Handle.Close();
         Disposing();
         _isDisposed = true;
         

@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Windows\Windows.csproj" />
+      <ProjectReference Include="..\WinIO\WindowOutput.csproj" />
+    </ItemGroup>
+
 </Project>
