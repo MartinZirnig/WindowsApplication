@@ -2,7 +2,7 @@
 
 namespace BasicInputs.InputProviders;
 
-internal interface IUserInputProvider : IStandardLifecycle
+internal interface IUserInputProvider
 {
     public event Action<MouseButtonEventData>? MouseButtonActions;
     public event Action<MouseMoveEventData>? MouseMoveActions;

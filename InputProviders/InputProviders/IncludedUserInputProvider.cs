@@ -1,7 +1,5 @@
 ﻿using BasicInputs.DataObjects.Mouse;
 using System.Numerics;
-using Windows.UserInputManagement.DataObjects.Mouse;
-using Windows.UserInputManagement.InputProviders.Managers;
 using WindowsHooks;
 using WindowsLowLevelStructs;
 
@@ -21,7 +19,7 @@ public class IncludedUserInputProvider : IUserInputProvider
         _msgManager = WindowsMessageManager.Instance;
         _msgManager.OnMessage += OnMessage;
 
-        _lastPosition = MouseManager.GetCursorPosition();
+        _lastPosition = MouseManager.CursorPosition;
     }
 
     private void MouseMoved(MouseMoveEventData data)
@@ -50,7 +48,7 @@ public class IncludedUserInputProvider : IUserInputProvider
         if (msg.Message >= 0x0200 && msg.Message <= 0x020E)
         {
             var data = new MouseButtonEventData(
-                (MouseEventType)msg.Message, msg.Position, (short)msg.MouseData
+                (MouseEventType)msg.Message, msg.GetPointFromMouseEvent(), (short)msg.WParam);
 
 
         }

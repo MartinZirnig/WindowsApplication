@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleFormater", "ConsoleF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handles", "Handles\Handles.csproj", "{262F0312-F2AE-478B-83B6-D6BBCCD3D88C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCase", "UseCase\UseCase.csproj", "{B5CE64F5-C35E-4877-BC67-CC12E4F85899}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,8 +71,15 @@ Global
 		{262F0312-F2AE-478B-83B6-D6BBCCD3D88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{262F0312-F2AE-478B-83B6-D6BBCCD3D88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{262F0312-F2AE-478B-83B6-D6BBCCD3D88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5CE64F5-C35E-4877-BC67-CC12E4F85899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5CE64F5-C35E-4877-BC67-CC12E4F85899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5CE64F5-C35E-4877-BC67-CC12E4F85899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5CE64F5-C35E-4877-BC67-CC12E4F85899}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B64B783-1FA9-4619-84A3-45F3749DBDD6}
 	EndGlobalSection
 EndGlobal

@@ -1,16 +1,11 @@
 ﻿namespace WindowsApplication;
 
-internal class ApplicationBuilder
+public class ApplicationBuilder
 {
-
-
-
-
     public TApp Build<TApp>(params object?[]? buildParameters)
-        where TApp : GeneralApplication
+        where TApp : Application
     {
-        var result = (TApp)Activator.CreateInstance(typeof(TApp), buildParameters)!;
-        return result;
+        return Application.Build<TApp>(buildParameters);
     }
 }
 

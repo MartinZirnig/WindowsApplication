@@ -1,10 +1,12 @@
-﻿namespace WindowsApplication.Configuration;
+﻿using Microsoft.Win32.SafeHandles;
+
+namespace WindowsApplication.Configuration;
 
 public class ApplicationConfiguration
 {
-    internal bool InitializeApplicationInput {  get; set; } 
-    internal bool CatchMouse { get; set; }
-    internal bool CatchKeyboard { get; set; }
-    
-    internal bool CloseStandardConsole { get; set; }
+    public bool InitializeApplicationInput {  get; set; }
+    public bool CatchMouse { get; set; }
+    public bool CatchKeyboard { get; set; }
+
+    public bool CloseStandardConsole { get; set; }
 }

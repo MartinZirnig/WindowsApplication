@@ -40,4 +40,9 @@ public class ConsoleWindow : Window
     {
         throw new NotImplementedException();
     }
+
+    public override AttachedWindowData GetWindowData()
+    {
+        throw new NotImplementedException();
+    }
 }
